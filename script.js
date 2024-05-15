@@ -30,4 +30,4 @@ function createChart(labels, values) {
     // bar chart
 }
 
-fetchCSVandPlot('data.csv');
+fetchCSVandPlot('DataPadi.csv');
