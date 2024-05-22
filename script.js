@@ -29,10 +29,8 @@ function fetchCSVandPlot(url) {
         .catch(error => console.error('Error fetching CSV:', error));
 }
 
-
-
 function createChart(labels, values) {
-    // bar chart
+    // Bar chart
     const ctx = document.getElementById('barChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -41,8 +39,8 @@ function createChart(labels, values) {
             datasets: [{
                 label: 'Data',
                 data: values[0],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Customize bar color
-                borderColor: 'rgba(54, 162, 235, 1)', // Customize border color
+                backgroundColor: '#0E8388', // Customize bar color
+                borderColor: '#306464', // Customize border color
                 borderWidth: 1
             }]
         },
@@ -50,85 +48,60 @@ function createChart(labels, values) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        font: {
+                            family: 'Poppins', // Set font family for Chart.js chart
+                            weight: 'bold' // Set font weight for Chart.js chart
+                        }
                     }
                 }]
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Luas Panen antar Provinsi di Tahun 2023', // Title for bar chart
+                    font: {
+                        size: 24,
+                        family: 'Poppins', // Set font family for Chart.js chart
+                        weight: 'bold' // Set font weight for Chart.js chart
+                    }
+                }
             }
         }
     });
 
-    //Pie Chart Pulau Sumatra
-    const pieData1 = [{
-        labels: labels. slice(1,8), // Pie chart labels
-        values: values[1]. slice(1,8), // Pie chart values
-        type: 'pie'
+    const pieColors = ['#0E8388', '#306464', '#FDB034'];
+
+    // Function to create Plotly pie chart
+    function createPieChart(elementId, titleText, labelSliceStart, labelSliceEnd, valueSliceStart, valueSliceEnd) {
+        const pieData = [{
+            labels: labels.slice(labelSliceStart, labelSliceEnd), // Pie chart labels
+            values: values[1].slice(valueSliceStart, valueSliceEnd), // Pie chart values
+            type: 'pie',
+            marker: { colors: pieColors }
         }];
-    
-    const layout1 = {
-        font: {size: 18},
-        responsive: true
+
+        const layout = {
+            font: { size: 18, family: 'Poppins' }, // Set font family for Plotly pie chart
+            title: {
+                text: titleText, // Title for pie chart
+                font: { size: 24, family: 'Poppins', weight: 'bold' }, // Set font properties for title
+                xref: 'paper',
+                x: 0.5,
+                xanchor: 'center'
+            },
+            responsive: true
         };
-    
-    Plotly.newPlot('PiePlot1', pieData1, layout1);
 
-    
-    //Pie Chart Pulau Jawa
-    const pieData2 = [{
-        labels: labels. slice(11,16), // Pie chart labels
-        values: values[1]. slice(11,16), // Pie chart values
-        type: 'pie'
-        }];
-    
-    const layout2 = {
-        font: {size: 18},
-        responsive: true
-        };
-    
-    Plotly.newPlot('PiePlot2', pieData2, layout2);
+        Plotly.newPlot(elementId, pieData, layout);
+    }
 
-
-    //Pie Chart Pulau Kalimantan
-    const pieData3 = [{
-        labels: labels. slice(20,24), 
-        values: values[1]. slice(20,24), 
-        type: 'pie'
-        }];
-    
-    const layout3 = {
-        font: {size: 18},
-        responsive: true
-        };
-    
-    Plotly.newPlot('PiePlot3', pieData3, layout3);
-
-    //Pie Chart Pulau Sulawesi
-    const pieData4 = [{
-        labels: labels. slice(25,30), 
-        values: values[1]. slice(25,30), 
-        type: 'pie'
-        }];
-    
-    const layout4 = {
-        font: {size: 18},
-        responsive: true
-        };
-    
-    Plotly.newPlot('PiePlot4', pieData4, layout4);
-
-    //Pie Chart Pulau Papua
-    const pieData5 = [{
-        labels: labels. slice(33,38), 
-        values: values[1]. slice(33,38), 
-        type: 'pie'
-        }];
-    
-    const layout5 = {
-        font: {size: 18},
-        responsive: true
-        };
-    
-    Plotly.newPlot('PiePlot5', pieData5, layout5);
-
+    // Create Plotly pie charts
+    createPieChart('PiePlot1', 'Total Produksi Pulau Sumatera', 1, 8, 1, 8);
+    createPieChart('PiePlot2', 'Total Produksi Pulau Jawa', 11, 16, 11, 16);
+    createPieChart('PiePlot3', 'Total Produksi Pulau Kalimantan', 20, 24, 20, 24);
+    createPieChart('PiePlot4', 'Total Produksi Pulau Sulawesi', 25, 30, 25, 30);
+    createPieChart('PiePlot5', 'Total Produksi Pulau Papua', 33, 38, 33, 38);
 }
 
 fetchCSVandPlot('DataPadi.csv');
