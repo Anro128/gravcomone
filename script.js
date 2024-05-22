@@ -17,7 +17,7 @@ function fetchCSVandPlot(url) {
 
                 // Create an array to store values for each row
                 for (let i = 1; i < columns.length; i++) {
-                    values[i-1].push(parseFloat(columns[i]));
+                    values[i - 1].push(parseFloat(columns[i]));
                 }
             });
 
@@ -67,6 +67,49 @@ function createChart(labels, values) {
 
     
     const pieColors = ['#0E8388', '#306464', '#FDB034'];
+
+    // Line chart
+    const lineLabels = ['2021', '2022', '2023']; // Label tahun
+    const lineData = [52.25, 52.38, 52.85]; // Data nilai
+
+    const ctxx = document.getElementById('LineChart').getContext('2d');
+    const myLineChart = new Chart(ctxx, {
+        type: 'line',
+        data: {
+            labels: lineLabels,
+            datasets: [{
+                label: 'Data',
+                data: lineData,
+                borderColor: '#0E8388', // Warna garis line chart
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 50, // Set step size to 20
+                        font: {
+                            family: 'Poppins',
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Produktivitas Padi Indonesia Dari Tahun 2021 Sampai 2023',
+                    font: {
+                        size: 24,
+                        family: 'Poppins',
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
 
     // Function to create Plotly pie chart
     function createPieChart(elementId, titleText, labelSliceStart, labelSliceEnd, valueSliceStart, valueSliceEnd) {
