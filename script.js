@@ -15,7 +15,6 @@ function fetchCSVandPlot(url) {
                 const columns = row.split(',');
                 labels.push(columns[0]);
 
-                // Create an array to store values for each row
                 for (let i = 1; i < columns.length; i++) {
                     values[i - 1].push(parseFloat(columns[i]));
                 }
@@ -65,7 +64,6 @@ function createChart(labels, values) {
 
     Plotly.newPlot(barchart, data, layout);
 
-    
     const pieColors = ['#0E8388', '#306464', '#FDB034'];
 
     // Line chart
@@ -89,7 +87,7 @@ function createChart(labels, values) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 50, // Set step size to 20
+                        stepSize: 50, // Set step size to 50
                         font: {
                             family: 'Poppins',
                             weight: 'bold'
@@ -141,6 +139,65 @@ function createChart(labels, values) {
     createPieChart('PiePlot3', 'Total Produksi Pulau Kalimantan', 20, 24, 20, 24);
     createPieChart('PiePlot4', 'Total Produksi Pulau Sulawesi', 25, 30, 25, 30);
     createPieChart('PiePlot5', 'Total Produksi Pulau Papua', 33, 38, 33, 38);
+
+    // Bubble chart
+    function createBubbleChart(labels, values) {
+        const ctx = document.getElementById('bubbleChart').getContext('2d');
+        const dataPoints = values[0].map((x, index) => ({
+            x: x,
+            y: values[2][index],
+            r: values[1][index]
+        }));
+
+        const data = {
+            datasets: [{
+                label: 'Luas Panen vs Produksi',
+                data: dataPoints,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+        console.log(data);
+
+        const options = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Luas Panen'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Produksi'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bubble Chart Luas Panen vs Produksi dengan Ukuran Bubble Produktivitas'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Produktivitas: ${context.raw.r}`;
+                        }
+                    }
+                }
+            }
+        };
+
+        const myBubbleChart = new Chart(ctx, {
+            type: 'bubble',
+            data: data,
+            options: options
+        });
+    }
+
+    createBubbleChart(labels, values);
 }
 
 fetchCSVandPlot('DataPadi.csv');
