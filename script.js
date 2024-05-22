@@ -31,45 +31,41 @@ function fetchCSVandPlot(url) {
 
 function createChart(labels, values) {
     // Bar chart
-    const ctx = document.getElementById('barChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    const barchart = document.getElementById('barChart');
+    var trace = {
+        x: labels,
+        y: values[0],
         type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Data',
-                data: values[0],
-                backgroundColor: '#0E8388', // Customize bar color
-                borderColor: '#306464', // Customize border color
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        font: {
-                            family: 'Poppins', // Set font family for Chart.js chart
-                            weight: 'bold' // Set font weight for Chart.js chart
-                        }
-                    }
-                }]
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Luas Panen antar Provinsi di Tahun 2023', // Title for bar chart
-                    font: {
-                        size: 24,
-                        family: 'Poppins', // Set font family for Chart.js chart
-                        weight: 'bold' // Set font weight for Chart.js chart
-                    }
-                }
+        marker: {
+            color: '#0E8388', // Bar color
+            line: {
+                color: 'rgba(54, 162, 235, 1)', // Border color
+                width: 1
             }
         }
-    });
+    };
 
+    var data = [trace];
+
+    var layout = {
+        yaxis: {
+            title: 'Luas Panen (ha)',
+            zeroline: true,
+            zerolinecolor: '#000',
+            zerolinewidth: 1
+        },
+        xaxis: {
+            title: 'Provinsi',
+            zeroline: true,
+            zerolinecolor: '#000',
+            zerolinewidth: 1
+        },
+        barmode: 'group'
+    };
+
+    Plotly.newPlot(barchart, data, layout);
+
+    
     const pieColors = ['#0E8388', '#306464', '#FDB034'];
 
     // Function to create Plotly pie chart
