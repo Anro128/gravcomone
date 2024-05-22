@@ -93,7 +93,7 @@ function createChart(labels, values) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 20, // Set step size to 5
+                        stepSize: 50, // Set step size to 20
                         font: {
                             family: 'Poppins',
                             weight: 'bold'
