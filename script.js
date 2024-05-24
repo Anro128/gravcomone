@@ -183,7 +183,9 @@ function createChart(labels, values) {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return `Produktivitas: ${context.raw.r}`;
+                            const labelIndex = context.dataIndex;
+                            const dataLabel = labels[labelIndex]; 
+                            return `${dataLabel} ${context.raw.r}`;
                         }
                     }
                 }
