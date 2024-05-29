@@ -113,7 +113,7 @@ function createChart(labels, values) {
     function createPieChart(elementId, titleText, labelSliceStart, labelSliceEnd, valueSliceStart, valueSliceEnd) {
         const pieData = [{
             labels: labels.slice(labelSliceStart, labelSliceEnd), // Pie chart labels
-            values: values[1].slice(valueSliceStart, valueSliceEnd), // Pie chart values
+            values: values[2].slice(valueSliceStart, valueSliceEnd), // Pie chart values
             type: 'pie',
             marker: { colors: pieColors }
         }];
