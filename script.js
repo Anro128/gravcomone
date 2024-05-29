@@ -47,6 +47,15 @@ function createChart(labels, values) {
     var data = [trace];
 
     var layout = {
+        title: {
+                display: true,
+                text: 'BarChart Luas Panen Setiap Provinsi di Indonesia Tahun 2023',
+                font: {
+                    size: 24,
+                    family: 'Poppins',
+                    weight: 'bold'
+                }
+        },
         yaxis: {
             title: 'Luas Panen (ha)',
             zeroline: true,
@@ -183,7 +192,9 @@ function createChart(labels, values) {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return `Produktivitas: ${context.raw.r}`;
+                            const labelIndex = context.dataIndex;
+                            const dataLabel = labels[labelIndex]; 
+                            return `${dataLabel} ${context.raw.r}`;
                         }
                     }
                 }
