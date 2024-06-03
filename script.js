@@ -150,65 +150,79 @@ function createChart(labels, values) {
     createPieChart('PiePlot5', 'Total Produksi Pulau Papua', 33, 38, 33, 38);
 
     // Bubble chart
-    function createBubbleChart(labels, values) {
-        const ctx = document.getElementById('bubbleChart').getContext('2d');
-        const dataPoints = values[0].map((x, index) => ({
-            x: x,
-            y: values[2][index],
-            r: values[1][index]
-        }));
+function createBubbleChart(labels, values) {
+    const ctx = document.getElementById('bubbleChart').getContext('2d');
+    
+    // Function to generate random color
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
-        const data = {
-            datasets: [{
-                label: 'Luas Panen vs Produksi',
-                data: dataPoints,
-                backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
-        console.log(data);
+    const dataPoints = values[0].map((x, index) => ({
+        x: x,
+        y: values[2][index],
+        r: values[1][index],
+        backgroundColor: getRandomColor(),
+        borderColor: getRandomColor()
+    }));
 
-        const options = {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Luas Panen'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Produksi'
-                    }
-                }
-            },
-            plugins: {
+    const data = {
+        datasets: [{
+            label: 'Luas Panen vs Produksi',
+            data: dataPoints,
+            backgroundColor: dataPoints.map(point => point.backgroundColor),
+            borderColor: dataPoints.map(point => point.borderColor),
+            borderWidth: 1
+        }]
+    };
+    console.log(data);
+
+    const options = {
+        scales: {
+            x: {
                 title: {
                     display: true,
-                    text: 'Bubble Chart Luas Panen vs Produksi dengan Ukuran Bubble Produktivitas'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const labelIndex = context.dataIndex;
-                            const dataLabel = labels[labelIndex]; 
-                            return `${dataLabel} ${context.raw.r}`;
-                        }
+                    text: 'Luas Panen'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Produksi'
+                }
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Bubble Chart Luas Panen vs Produksi dengan Ukuran Bubble Produktivitas'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const labelIndex = context.dataIndex;
+                        const dataLabel = labels[labelIndex]; 
+                        return `${dataLabel} ${context.raw.r}`;
                     }
                 }
             }
-        };
+        }
+    };
 
-        const myBubbleChart = new Chart(ctx, {
-            type: 'bubble',
-            data: data,
-            options: options
-        });
-    }
+    const myBubbleChart = new Chart(ctx, {
+        type: 'bubble',
+        data: data,
+        options: options
+    });
+}
 
-    createBubbleChart(labels, values);
+createBubbleChart(labels, values);
+
 }
 
 fetchCSVandPlot('DataPadi.csv');
