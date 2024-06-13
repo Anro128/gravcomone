@@ -190,7 +190,7 @@ function createChart(labels, values) {
                         label: function(context) {
                             const labelIndex = context.dataIndex;
                             const dataLabel = labels[labelIndex]; 
-                            return '${dataLabel} ${context.raw.r}';
+                            return `${dataLabel} ${context.raw.r}`;
                         }
                     }
                 }
