@@ -31,14 +31,22 @@ function fetchCSVandPlot(url) {
 function createChart(labels, values) {
     // Bar chart
     const barchart = document.getElementById('barChart');
+    const combined = labels.map((label, index) => {
+        return { label: label, value: values[0][index] };
+    });
+
+    combined.sort((a, b) => b.value - a.value);
+
+    const barlabels = combined.map(item => item.label);
+    const barValues = [combined.map(item => item.value)];
     var trace = {
-        x: labels,
-        y: values[0],
+        x: barlabels,
+        y: barValues[0],
         type: 'bar',
         marker: {
             color: '#0E8388', // Bar color
             line: {
-                color: 'rgba(54, 162, 235, 1)', // Border color
+                color: 'rgba(22, 202, 208, 1)', // Border color
                 width: 1
             }
         }
@@ -47,33 +55,25 @@ function createChart(labels, values) {
     var data = [trace];
 
     var layout = {
-        title: {
-                display: true,
-                text: 'BarChart Luas Panen Setiap Provinsi di Indonesia Tahun 2023',
-                font: {
-                    size: 24,
-                    family: 'Poppins',
-                    weight: 'bold'
-                }
-        },
         yaxis: {
-            title: 'Luas Panen (ha)',
-            zeroline: true,
-            zerolinecolor: '#000',
-            zerolinewidth: 1
+            title: {
+                text: 'Luas Panen (ha)',
+                standoff: 10
+            },
         },
         xaxis: {
-            title: 'Provinsi',
-            zeroline: true,
-            zerolinecolor: '#000',
-            zerolinewidth: 1
+            title: {
+                text: 'Provinsi',
+                standoff: 20
+            },
+            automargin: true
         },
         barmode: 'group'
     };
 
     Plotly.newPlot(barchart, data, layout);
 
-    const pieColors = ['#0E8388', '#306464', '#FDB034'];
+    const pieColors = ['#16CAD0', '#0E8388', '#306464', '#6C4406', '#B16E02', '#FDB034', '#D2B98A'];
 
     // Line chart
     const lineLabels = ['2021', '2022', '2023']; // Label tahun
@@ -96,7 +96,7 @@ function createChart(labels, values) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 50, // Set step size to 50
+                        stepSize: 50, 
                         font: {
                             family: 'Poppins',
                             weight: 'bold'
@@ -104,17 +104,6 @@ function createChart(labels, values) {
                     }
                 }
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Produktivitas Padi Indonesia Dari Tahun 2021 Sampai 2023',
-                    font: {
-                        size: 24,
-                        family: 'Poppins',
-                        weight: 'bold'
-                    }
-                }
-            }
         }
     });
 
@@ -128,10 +117,10 @@ function createChart(labels, values) {
         }];
 
         const layout = {
-            font: { size: 18, family: 'Poppins' }, // Set font family for Plotly pie chart
+            font: { size: 18, family: 'Poppins' },
             title: {
-                text: titleText, // Title for pie chart
-                font: { size: 24, family: 'Poppins', weight: 'bold' }, // Set font properties for title
+                text: titleText, 
+                font: { size: 18, family: 'Poppins', weight: 'bold' }, 
                 xref: 'paper',
                 x: 0.5,
                 xanchor: 'center'
@@ -143,86 +132,79 @@ function createChart(labels, values) {
     }
 
     // Create Plotly pie charts
-    createPieChart('PiePlot1', 'Total Produksi Pulau Sumatera', 1, 8, 1, 8);
-    createPieChart('PiePlot2', 'Total Produksi Pulau Jawa', 11, 16, 11, 16);
-    createPieChart('PiePlot3', 'Total Produksi Pulau Kalimantan', 20, 24, 20, 24);
-    createPieChart('PiePlot4', 'Total Produksi Pulau Sulawesi', 25, 30, 25, 30);
-    createPieChart('PiePlot5', 'Total Produksi Pulau Papua', 33, 38, 33, 38);
+    createPieChart('PiePlot1', 'Total Produksi Pulau Sumatera', 0, 10, 0, 10);
+    createPieChart('PiePlot2', 'Total Produksi Pulau Jawa', 10, 16, 10, 16);
+    createPieChart('PiePlot3', 'Total Produksi Pulau Kalimantan', 19, 24, 19, 24);
+    createPieChart('PiePlot4', 'Total Produksi Pulau Sulawesi', 24, 30, 24, 30);
+    createPieChart('PiePlot5', 'Total Produksi Pulau Papua', 32, 38, 32, 38);
 
     // Bubble chart
-function createBubbleChart(labels, values) {
-    const ctx = document.getElementById('bubbleChart').getContext('2d');
-    
-    // Function to generate random color
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
+    function createBubbleChart(labels, values) {
+        const ctx = document.getElementById('bubbleChart').getContext('2d');
+        const dataPoints = values[0].map((x, index) => ({
+            x: x,
+            y: values[2][index],
+            r: values[1][index]
+        }));
 
-    const dataPoints = values[0].map((x, index) => ({
-        x: x,
-        y: values[2][index],
-        r: values[1][index],
-        backgroundColor: getRandomColor(),
-        borderColor: getRandomColor()
-    }));
+        const data = {
+            datasets: [{
+                label: 'Luas Panen vs Produksi',
+                data: dataPoints,
+                backgroundColor: 'rgba(14, 131, 136, 0.5)',
+                borderColor: 'rgba(22, 202, 208, 1)',
+                borderWidth: 2
+            }]
+        };
+        console.log(data);
 
-    const data = {
-        datasets: [{
-            label: 'Luas Panen vs Produksi',
-            data: dataPoints,
-            backgroundColor: dataPoints.map(point => point.backgroundColor),
-            borderColor: dataPoints.map(point => point.borderColor),
-            borderWidth: 1
-        }]
-    };
-    console.log(data);
-
-    const options = {
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: 'Luas Panen'
+        const options = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Luas Panen',
+                        font: {
+                            family: 'Poppins',
+                            size: 13,
+                        }
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Produksi',
+                        font: {
+                            family: 'Poppins',
+                            size: 13,
+                        }
+                    }
                 }
             },
-            y: {
+            plugins: {
                 title: {
                     display: true,
-                    text: 'Produksi'
-                }
-            }
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Bubble Chart Luas Panen vs Produksi dengan Ukuran Bubble Produktivitas'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        const labelIndex = context.dataIndex;
-                        const dataLabel = labels[labelIndex]; 
-                        return `${dataLabel} ${context.raw.r}`;
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const labelIndex = context.dataIndex;
+                            const dataLabel = labels[labelIndex]; 
+                            return '${dataLabel} ${context.raw.r}';
+                        }
                     }
                 }
             }
-        }
-    };
+        };
 
-    const myBubbleChart = new Chart(ctx, {
-        type: 'bubble',
-        data: data,
-        options: options
-    });
-}
+        const myBubbleChart = new Chart(ctx, {
+            type: 'bubble',
+            data: data,
+            options: options
+        });
+    }
 
-createBubbleChart(labels, values);
-
+    createBubbleChart(labels, values);
 }
 
 fetchCSVandPlot('DataPadi.csv');

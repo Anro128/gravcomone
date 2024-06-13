@@ -7,27 +7,97 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-
 </head>
 <body>
-    <h1>Gravcomone</h1>
-    <div id="barChart"></div>
+    <h1 style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 40px;">
+        Tugas Akhir Grafika Komputer 2024</h1>
+    <p style="text-align: center; font-family: 'Poppins', sans-serif; font-size: 18px;">Dataset yang digunakan adalah data Luas Panen, Produksi, dan Produktivitas Padi Menurut Provinsi,
+        2021-2023 yang diambil dari situs Badan Pusat Statistika</p>
     <br>
     <br>
+
+
+    <h2 style="margin-left: 30px; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">1. Bar Chart</h2>
+    <h2 style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">
+        Luas Panen Setiap Provinsi di Indonesia Tahun 2023
+    </h2>
+    <div id="barChart">
+    </div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Bar chart ini menunjukkan luas panen setiap provinsi di Indonesia pada tahun 2023. Dari data ini,
+        terlihat bahwa provinsi Jawa Timur, Jawa Tengah, dan Jawa Barat mendominasi dengan luas panen yang sangat tinggi,
+        mencapai atau bahkan melebihi 1 juta hektar, diikuti oleh Sulawesi Selatan yang juga memiliki luas panen signifikan.
+        Provinsi seperti Sumatera Selatan, Lampung, dan Sumatera Utara memiliki luas panen sedang. Sementara itu, banyak provinsi lainnya,
+        termasuk beberapa di Kalimantan serta sebagian besar wilayah timur Indonesia seperti Maluku, Papua Barat, dan Nusa Tenggara Timur,
+        menunjukkan luas panen yang lebih kecil. Variasi signifikan ini mengungkapkan ketimpangan antara provinsi-provinsi dengan luas panen
+        besar dan yang lebih kecil, menyoroti peran penting provinsi tertentu dalam produksi pertanian nasional.
+    </p>
     <br>
+
+
+    <h2 style="margin-left: 30px; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">2. Line Chart</h2>
+    <h2 style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">
+        Produktivitas Padi Indonesia dari Tahun 2021-2023
+    </h2>
     <br>
     <div style="width: 80%; margin: auto;">
         <canvas id="LineChart"></canvas>
     </div>
+    <br>
+    <br>
+
+
+    <h2 style="margin-left: 30px; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">3. Pie Chart</h2>
+    <h2 style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">
+        Total Produksi Padi 5 Pulau Besar di Indonesia Tahun 2023
+    </h2>
     <div id="PiePlot1"></div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Pie chart diatas menunjukkan total produksi padi di Pulau Sumatera. Provinsi Sumatera Selatan adalah provinsi dengan total produksi
+        padi terbesar di Pulau Sumatera yaitu sebesar 24,8% atau sekitar 2.832.773,92 ton. Namun total produks ini tidak berbeda jauh dari provinsi lainnya.
+    </p>
     <div id="PiePlot2"></div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Pie chart diatas menunjukkan total produksi padi di Pulau Jawa. Provinsi Jawa Timur adalah provinsi dengan total produksi
+        padi terbesar di Pulau Jawa yaitu sebesar 32,2% atau sekitar 9.710.661,33 ton.
+    </p>
     <div id="PiePlot3"></div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Pie chart diatas menunjukkan total produksi padi di Pulau Kalimantan. Provinsi Kalimantan Selatan adalah provinsi dengan total produksi
+        padi terbesar di Pulau Kalimatan yaitu sebesar 40,6% atau sekitar 875.545,73 ton.
+    </p>
     <div id="PiePlot4"></div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Pie chart diatas menunjukkan total produksi padi di Pulau Sulawesi. Provinsi Sulawesi Selatan adalah provinsi dengan total produksi
+        padi terbesar di Pulau Sulawesi yaitu sebesar 70,1% atau sekitar 4.876.386,11 ton. Terlihat perbedaan yang cukup signifikan dengan provinsi lainnya.
+    </p>
     <div id="PiePlot5"></div>
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Pie chart diatas menunjukkan total produksi padi di Pulau Papua. Provinsi Papua Selatan adalah provinsi dengan total produksi
+        padi paling besar dan paling mendominasi di Pulau Papua yaitu sebesar 82,8% atau sekitar 18.3627,83 ton.
+    </p>
+    
+
+
+    <h2 style="margin-left: 30px; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">4. Bubble Chart</h2>
+    <h2 style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 24px;">
+        Hubungan Luas Panen dan Produksi Padi Tahun 2023
+    </h2>
+    <p style="text-align: center; font-family: 'Poppins', sans-serif; font-size: 18px;">
+        Ukuran Bubble Mewakili Produktivitas
+    </p>
     <div style="width: 80%; margin: auto;">
         <canvas id="bubbleChart"></canvas>
     </div>
-
+    <p style="margin-left: 30px; margin-right: 30px; font-family: 'Poppins', sans-serif; font-size: 16px; text-align: justify;">
+        Penggunaan bubble chart untuk menunjukkan kuantitas produktivitas pada tiap daerah yang diimplementasikan dalam bentuk bubble
+        dengan sumbu x luas panen lalu sumbu y adalah jumlah produksi. Pemilihan visualisasi data dengan menggunakan bubble chart dikarenakan
+        pada bubble chart bisa untuk representasi multivariat yang melibatkan lebih dari 2 variabel, seperti pada gambar adalah 3 variabel
+        yang digunakan. Pada bubble ditunjukkan data yang menjadi outlier dan terlihat pada gambar terdapat 3 data outlier atas yang memiliki
+        ukuran bubble cukup besar dan jumlah produksi dan luas panen yang besar. Dari bubble chart tersebut dapat diidentifikasi daerah mana
+        saja yang dapat memproduksi padi dalam jumlah besar dengan melihat perbandingan luas panen serta produktivitasnya dalam jangka waktu
+        satu tahun.
+    </p>
     <script src="script.js"></script>
 </body>
 </html>
